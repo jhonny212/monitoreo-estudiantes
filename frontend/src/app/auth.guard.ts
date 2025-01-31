@@ -16,8 +16,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     if (token) {
       return authService.validateToken(token).pipe(
         map((isValid) => {
-          console.log(isValid+"----");
-          
           if (isValid) {
             return true;
           } else {

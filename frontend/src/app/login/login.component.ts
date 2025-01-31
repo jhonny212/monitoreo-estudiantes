@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { AlertServiceService } from '../utils/alert-service.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private alerService: AlertServiceService) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],
@@ -41,7 +42,6 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-
       this.authService.login(username, password).subscribe({
         next: (response) => {
           localStorage.setItem('isLoggedIn', "true");
@@ -49,7 +49,7 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         error: (err) => {
-          console.error('Error de login', err);
+          this.alerService.showMessage("Error al hacer login, verifique las credenciales","error")
         },
       });
     }

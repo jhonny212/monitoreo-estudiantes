@@ -14,16 +14,13 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content style="background-color: #eaeaec;">
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="toggleMenu()">
+      <button mat-icon-button style="color: white"  (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Monitoreo estudiantil</span>
       <span class="toolbar-spacer"></span>
-      <button mat-icon-button>
-        <mat-icon>account_circle</mat-icon>
-      </button>
     </mat-toolbar>
 
     <div class="content">
@@ -32,5 +29,5 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
+<app-alert></app-alert>
 <router-outlet *ngIf="!isLoggedIn()"></router-outlet>
