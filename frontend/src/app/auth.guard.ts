@@ -5,11 +5,14 @@ import { AuthService } from './auth.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
-
+function clearLocalStorage() {
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('token');
+}
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const authService = inject(AuthService)
+  const authService = inject(AuthService);
 
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('token');
@@ -19,22 +22,19 @@ export const authGuard: CanActivateFn = (route, state) => {
           if (isValid) {
             return true;
           } else {
+            clearLocalStorage();
             router.navigate(['/login']);
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('token');
             return false;
           }
         }),
         catchError(() => {
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('token');
+          clearLocalStorage();
           router.navigate(['/login']);
           return of(false);
         })
       );
     } else {
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('token');
+      clearLocalStorage();
       router.navigate(['/login']);
       return false;
     }

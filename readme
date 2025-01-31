@@ -1,0 +1,79 @@
+# Proyecto Django + Angular
+
+## Requisitos
+
+### Backend (Django)
+- Python 3.10
+- PostgreSQL
+- Pip y Virtualenv
+
+### Frontend (Angular)
+- Node.js (versión recomendada: 18.x)
+- npm o pnpm
+- Angular CLI
+
+---
+
+## Instrucciones para ejecutar el backend (Django REST Framework)
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/jhonny212/monitoreo-estudiantes.git
+cd monitoreo-estudiantes
+```
+
+### 2. Crear y activar un entorno virtual
+```bash
+python3.10 -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
+
+### 3. Instalar dependencias
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Crear el archivo `.env`
+Crea un archivo `.env` en la raíz del proyecto con las variables necesarias. Ejemplo:
+```
+DEBUG=True
+...
+Ver archivo .envexample en el repositorio
+```
+
+### 5. Aplicar migraciones y crear superusuario
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+### 6. Correr el servidor
+```bash
+python manage.py runserver
+```
+El backend estará disponible en `http://127.0.0.1:8000/`
+
+---
+
+## Instrucciones para ejecutar el frontend (Angular)
+
+### 1. Ir al directorio del frontend
+```bash
+cd frontend
+```
+
+### 2. Instalar dependencias
+```bash
+npm install  # o pnpm install
+```
+
+### 3. Ejecutar la aplicación
+```bash
+ng serve
+```
+La aplicación estará disponible en `http://localhost:4200/`
+
+---
+### 4. Nota
+
+Si se desea cambiar la url de backend para llamar las apis editar el archivo environment.ts
