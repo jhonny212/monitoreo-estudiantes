@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: monitoreo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Jhon19PVT
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:Jhon19PVT@db:5432/monitoreo
+      - DJANGO_SETTINGS_MODULE=monitoreo.settings
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    
+    command: >
+      sh -c "
+        python manage.py migrate && \
+        #python manage.py shell -c \"from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')\" && \
+        gunicorn monitoreo.wsgi:application --bind 0.0.0.0:8000 --workers 4
+      "
+
+volumes:
+  postgres_data:
